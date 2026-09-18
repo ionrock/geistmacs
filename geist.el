@@ -679,10 +679,10 @@ Choices are `blue' (Vercel blue), `white' (pure white), or `fg' (match foregroun
 ;;;###autoload
 (defun geist-setup-fonts (&optional mono-size variable-size)
   "Set up default Geist Mono and Geist fonts with MONO-SIZE and VARIABLE-SIZE in pt.
-Defaults are 14pt."
+Defaults are 12pt."
   (interactive)
-  (let ((m-size (or mono-size 14))
-        (v-size (or variable-size 14)))
+  (let ((m-size (or mono-size 12))
+        (v-size (or variable-size 12)))
     (when (member "Geist Mono" (font-family-list))
       (set-face-attribute 'default nil :family "Geist Mono" :height (* m-size 10))
       (set-face-attribute 'fixed-pitch nil :family "Geist Mono" :height (* m-size 10))

@@ -84,5 +84,14 @@
       (should (string-match-p "^#[0-9a-fA-F]\\{6\\}$" (aref dark-vec i)))
       (should (string-match-p "^#[0-9a-fA-F]\\{6\\}$" (aref light-vec i))))))
 
+(ert-deftest geist-test-setup-fonts-defaults ()
+  "Ensure geist-setup-fonts defaults to 12pt."
+  (geist-setup-fonts)
+  (when (member "Geist Mono" (font-family-list))
+    (should (= (face-attribute 'default :height) 120))
+    (should (= (face-attribute 'fixed-pitch :height) 120)))
+  (when (member "Geist" (font-family-list))
+    (should (= (face-attribute 'variable-pitch :height) 120))))
+
 (provide 'geist-test)
 ;;; geist-test.el ends here

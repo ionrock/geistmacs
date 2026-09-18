@@ -85,8 +85,8 @@ A minimalist, high-contrast GNU Emacs theme family inspired by Vercel's iconic *
 (use-package geist
   :vc (:url "https://github.com/elarson/geistmacs")
   :init
-  ;; Optional: configure font setup
-  ;; (geist-setup-fonts 14 14)
+  ;; Optional: configure font setup (defaults to 12pt)
+  ;; (geist-setup-fonts)
   :config
   (load-theme 'geist-dark t))
 ```
@@ -141,7 +141,7 @@ Customize variables before or after loading the theme:
 | `M-x geist-load-dark` | Load `geist-dark` and disable other themes |
 | `M-x geist-load-light` | Load `geist-light` and disable other themes |
 | `M-x geist-toggle` | Toggle seamlessly between `geist-dark` and `geist-light` |
-| `M-x geist-setup-fonts` | Apply `Geist Mono` and `Geist` fonts if installed |
+| `M-x geist-setup-fonts` | Apply `Geist Mono` and `Geist` fonts at 12pt (or custom size) |
 
 ---
 
