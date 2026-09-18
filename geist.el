@@ -685,7 +685,8 @@ Defaults are 14pt."
         (v-size (or variable-size 14)))
     (when (member "Geist Mono" (font-family-list))
       (set-face-attribute 'default nil :family "Geist Mono" :height (* m-size 10))
-      (set-face-attribute 'fixed-pitch nil :family "Geist Mono" :height (* m-size 10)))
+      (set-face-attribute 'fixed-pitch nil :family "Geist Mono" :height (* m-size 10))
+      (add-to-list 'default-frame-alist `(font . ,(format "Geist Mono-%d" m-size))))
     (when (member "Geist" (font-family-list))
       (set-face-attribute 'variable-pitch nil :family "Geist" :height (* v-size 10)))))
 
