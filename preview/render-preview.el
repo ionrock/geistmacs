@@ -632,11 +632,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     (kill-buffer code-buf)
     (message "Generated HTML preview for %s at %s" theme-variant out-path)))
 
-(defun render-completion-html (out-path)
-  "Render a preview focused on completion UIs (Corfu popup and Vertico minibuffer)."
+(defun render-completion-html (variant out-path)
+  "Render a preview focused on completion UIs for VARIANT (`dark' or `light')."
   (mapc #'disable-theme custom-enabled-themes)
-  (load-theme 'geist-dark t)
-  (let* ((p geist-dark-palette)
+  (load-theme (if (eq variant 'dark) 'geist-dark 'geist-light) t)
+  (let* ((p (if (eq variant 'dark) geist-dark-palette geist-light-palette))
          (bg-main (geist--c 'bg-main p))
          (bg-alt (geist--c 'bg-alt p))
          (bg-surface (geist--c 'bg-surface p))
@@ -657,11 +657,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 <html>
 <head>
 <meta charset=\"utf-8\">
-<title>Geist Dark - Completion UI</title>
+<title>Geist %s - Completion UI</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    background-color: #0a0a0a;
+    background-color: %s;
     font-family: 'Geist Mono', monospace;
     font-size: 13.5px;
     line-height: 1.5;
@@ -678,7 +678,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     border: 1px solid %s;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 0 1px #222222;
+    box-shadow: %s;
   }
   .titlebar {
     background: %s;
@@ -710,7 +710,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     background: %s;
     border: 1px solid %s;
     border-radius: 8px;
-    box-shadow: 0 16px 36px rgba(0,0,0,0.8), 0 0 0 1px %s;
+    box-shadow: %s;
     width: 380px;
     overflow: hidden;
     font-size: 13px;
@@ -773,7 +773,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       <div class=\"dot\" style=\"background:#ffbd2e;\"></div>
       <div class=\"dot\" style=\"background:#27c93f;\"></div>
     </div>
-    <div style=\"color:%s; font-weight:600;\">geist-dark — Completion & Diagnostics (Corfu + Vertico + Marginalia)</div>
+    <div style=\"color:%s; font-weight:600;\">geist-%s — Completion & Diagnostics (Corfu + Vertico + Marginalia)</div>
   </div>
 
   <div class=\"editor\">
@@ -839,15 +839,22 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
 </body>
 </html>"
+              (capitalize (symbol-name variant))
+              (if (eq variant 'dark) "#0a0a0a" "#e8e8e8")
               fg-main
               bg-main
               border-main
+              (if (eq variant 'dark)
+                  "0 30px 80px rgba(0,0,0,0.9), 0 0 0 1px #222222"
+                "0 24px 60px rgba(0,0,0,0.12), 0 0 0 1px #eaeaea")
               bg-alt
               border-main
               bg-main
               bg-surface
               border-focus
-              border-focus
+              (if (eq variant 'dark)
+                  "0 16px 36px rgba(0,0,0,0.8), 0 0 0 1px #333333"
+                "0 16px 36px rgba(0,0,0,0.1), 0 0 0 1px #eaeaea")
               bg-surface-active
               fg-main
               fg-dim
@@ -860,6 +867,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
               fg-dim
               pink
               fg-main
+              (symbol-name variant)
               pink pink cyan
               pink pink cyan
               pink blue-bright purple
@@ -1057,7 +1065,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   (make-directory "preview" t)
   (render-full-theme-html 'dark "preview/geist-dark-preview.html")
   (render-full-theme-html 'light "preview/geist-light-preview.html")
-  (render-completion-html "preview/geist-completion-preview.html")
+  (render-completion-html 'dark "preview/geist-completion-dark-preview.html")
+  (render-completion-html 'light "preview/geist-completion-light-preview.html")
   (render-comparison-html "preview/geist-comparison-preview.html"))
 
 (run-all-previews)

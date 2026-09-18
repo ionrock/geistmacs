@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geistmacs — Vercel Geist Theme for GNU Emacs</title>
+  <style>
+    :root {
+      --bg: #000000;
+      --bg-subtle: #0a0a0a;
+      --bg-surface: #111111;
+      --bg-surface-hover: #171717;
+      --border: #222222;
+      --border-focus: #383838;
+      --fg: #ededed;
+      --fg-secondary: #a1a1a1;
+      --fg-muted: #737373;
+      --fg-faint: #444444;
+      --brand-blue: #0070f3;
+      --brand-blue-bright: #3291ff;
+      --brand-pink: #ff0080;
+      --brand-green: #00df89;
+      --brand-yellow: #f5a623;
+      --brand-purple: #8a63d2;
+      --brand-cyan: #50e3c2;
+      --card-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --bg-subtle: #fafafa;
+      --bg-surface: #f5f5f5;
+      --bg-surface-hover: #eaeaea;
+      --border: #eaeaea;
+      --border-focus: #cccccc;
+      --fg: #171717;
+      --fg-secondary: #666666;
+      --fg-muted: #888888;
+      --fg-faint: #d4d4d4;
+      --brand-blue: #0068d6;
+      --brand-blue-bright: #0070f3;
+      --brand-pink: #be185d;
+      --brand-green: #059669;
+      --brand-yellow: #d97706;
+      --brand-purple: #6d28d9;
+      --brand-cyan: #0891b2;
+      --card-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    code, pre, .mono {
+      font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    /* Header Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background-color: rgba(0, 0, 0, 0.75);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    [data-theme="light"] header {
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--fg);
+    }
+
+    .logo-triangle {
+      font-size: 18px;
+      color: var(--fg);
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-badge {
+      font-size: 11px;
+      font-family: 'Geist Mono', monospace;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background-color: var(--bg-surface);
+      color: var(--fg-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--fg);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: var(--bg-surface-hover);
+      border-color: var(--border-focus);
+    }
+
+    .btn-primary {
+      background: var(--fg);
+      color: var(--bg);
+      border-color: var(--fg);
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: var(--fg-secondary);
+      border-color: var(--fg-secondary);
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+      flex: 1;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 4vw, 44px);
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--fg-secondary);
+      max-width: 680px;
+      margin: 0 auto 28px;
+      font-weight: 400;
+      letter-spacing: -0.2px;
+    }
+
+    /* Filters / Tabs */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--fg-secondary);
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn:hover {
+      color: var(--fg);
+      background: var(--bg-surface);
+    }
+
+    .filter-btn.active {
+      color: var(--fg);
+      background: var(--bg-surface);
+      border-color: var(--border);
+      font-weight: 600;
+    }
+
+    /* Screenshots Grid */
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+    }
+
+    .card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: var(--border-focus);
+    }
+
+    .card-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--fg-secondary);
+      margin-top: 4px;
+    }
+
+    .tag-pill {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--bg-surface);
+      color: var(--fg-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .image-container {
+      position: relative;
+      background: var(--bg);
+      cursor: zoom-in;
+      display: block;
+      overflow: hidden;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .image-container:hover img {
+      transform: scale(1.006);
+    }
+
+    .zoom-hint {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-family: 'Geist Mono', monospace;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .image-container:hover .zoom-hint {
+      opacity: 1;
+    }
+
+    /* Swatches Strip */
+    .card-footer {
+      padding: 14px 24px;
+      background: var(--bg-subtle);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 12px;
+    }
+
+    .swatches {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .swatch-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: var(--fg-secondary);
+    }
+
+    .swatch-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* Modal Lightbox */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal img {
+      max-width: 95vw;
+      max-height: 92vh;
+      border-radius: 8px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+      border: 1px solid var(--border);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: #111111;
+      border: 1px solid #333333;
+      color: #ededed;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--fg-muted);
+      background: var(--bg-subtle);
+    }
+
+    footer a {
+      color: var(--fg);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="#" class="brand">
+      <span class="logo-triangle">▲</span>
+      <span class="brand-title">Geistmacs</span>
+      <span class="brand-badge">v0.1.0</span>
+      <span class="brand-badge">GNU Emacs</span>
+    </a>
+    <div class="nav-actions">
+      <button class="btn" id="theme-toggle" title="Toggle website theme">
+        <span id="theme-icon">☀️</span>
+        <span id="theme-text">Light</span>
+      </button>
+      <a href="README.md" class="btn">Documentation</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <h1 class="hero-title">
+        <span>▲</span> Geistmacs Screenshots
+      </h1>
+      <p class="hero-subtitle">
+        Visual review of the Vercel Geist theme family for GNU Emacs. Featuring OLED pitch-black dark mode, pure paper white light mode, split code & terminal buffers, and Corfu / Vertico completion popups.
+      </p>
+
+      <!-- Filter Buttons -->
+      <div class="filter-tabs">
+        <button class="filter-btn active" data-filter="all">All Previews</button>
+        <button class="filter-btn" data-filter="comparison">Comparison Banner</button>
+        <button class="filter-btn" data-filter="dark">Geist Dark</button>
+        <button class="filter-btn" data-filter="light">Geist Light</button>
+        <button class="filter-btn" data-filter="completion">Completion Popups</button>
+      </div>
+    </section>
+
+    <!-- Screenshot Cards -->
+    <div class="grid">
+
+      <!-- 1. Comparison Banner -->
+      <article class="card" data-category="comparison">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span style="color:var(--brand-blue); font-weight:700;">▲</span>
+            <div>
+              <h2 class="card-title">Geist Dark vs. Geist Light Comparison</h2>
+              <p class="card-desc">Side-by-side contrast preview of pitch black (#000000) and crisp white (#ffffff).</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <span class="tag-pill">Side-by-Side</span>
+            <span class="tag-pill">1520x780</span>
+          </div>
+        </div>
+        <div class="image-container" onclick="openModal('screenshots/geist-comparison.png')">
+          <img src="screenshots/geist-comparison.png" alt="Geist Dark vs Light comparison">
+          <div class="zoom-hint">🔍 Click to zoom full-res</div>
+        </div>
+        <div class="card-footer">
+          <div class="swatches">
+            <span style="color:var(--fg-muted);">Tokens:</span>
+            <div class="swatch-item"><div class="swatch-color" style="background:#000000;"></div> #000000 (OLED)</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#ffffff;"></div> #ffffff (Paper)</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#ff0080;"></div> #ff0080 (Pink)</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#3291ff;"></div> #3291ff (Blue)</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#00df89;"></div> #00df89 (Emerald)</div>
+          </div>
+          <div class="mono" style="color:var(--fg-muted);">(load-theme 'geist-dark t) / (load-theme 'geist-light t)</div>
+        </div>
+      </article>
+
+      <!-- 2. Geist Dark Code + Terminal -->
+      <article class="card" data-category="dark">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span style="color:var(--brand-pink); font-weight:700;">▲</span>
+            <div>
+              <h2 class="card-title">Geist Dark — TypeScript & Terminal Split Frame</h2>
+              <p class="card-desc">Full Emacs frame with active line hl-line, line numbers, vterm Vercel deploy CLI, and Magit diff.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <span class="tag-pill">Dark Mode</span>
+            <span class="tag-pill">Split Window</span>
+            <span class="tag-pill">1460x940</span>
+          </div>
+        </div>
+        <div class="image-container" onclick="openModal('screenshots/geist-dark.png')">
+          <img src="screenshots/geist-dark.png" alt="Geist Dark split frame preview">
+          <div class="zoom-hint">🔍 Click to zoom full-res</div>
+        </div>
+        <div class="card-footer">
+          <div class="swatches">
+            <span style="color:var(--fg-muted);">Dark Palette:</span>
+            <div class="swatch-item"><div class="swatch-color" style="background:#000000;"></div> Root #000000</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#121212;"></div> hl-line #121212</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#2a2a2a;"></div> Border #2a2a2a</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#ededed;"></div> Text #ededed</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#ff0080;"></div> Keywords #ff0080</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#3291ff;"></div> Cursor/Fn #3291ff</div>
+          </div>
+          <div class="mono" style="color:var(--brand-blue-bright);">M-x geist-load-dark</div>
+        </div>
+      </article>
+
+      <!-- 3. Geist Light Code + Terminal -->
+      <article class="card" data-category="light">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span style="color:var(--brand-green); font-weight:700;">▲</span>
+            <div>
+              <h2 class="card-title">Geist Light — TypeScript & Terminal Split Frame</h2>
+              <p class="card-desc">Crisp paper white (#ffffff) with subtle elevated surfaces (#fafafa), deep charcoal text (#171717), and Vercel CLI.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <span class="tag-pill">Light Mode</span>
+            <span class="tag-pill">Split Window</span>
+            <span class="tag-pill">1460x940</span>
+          </div>
+        </div>
+        <div class="image-container" onclick="openModal('screenshots/geist-light.png')">
+          <img src="screenshots/geist-light.png" alt="Geist Light split frame preview">
+          <div class="zoom-hint">🔍 Click to zoom full-res</div>
+        </div>
+        <div class="card-footer">
+          <div class="swatches">
+            <span style="color:var(--fg-muted);">Light Palette:</span>
+            <div class="swatch-item"><div class="swatch-color" style="background:#ffffff;"></div> Root #ffffff</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#f8f8f8;"></div> hl-line #f8f8f8</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#eaeaea;"></div> Border #eaeaea</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#171717;"></div> Text #171717</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#be185d;"></div> Keywords #be185d</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#0068d6;"></div> Fn #0068d6</div>
+          </div>
+          <div class="mono" style="color:var(--brand-blue);">M-x geist-load-light</div>
+        </div>
+      </article>
+
+      <!-- 4. Corfu + Vertico Completion Dark -->
+      <article class="card" data-category="completion dark">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span style="color:var(--brand-purple); font-weight:700;">▲</span>
+            <div>
+              <h2 class="card-title">Completion & Diagnostics — Dark Mode</h2>
+              <p class="card-desc">Corfu floating completion popup with type annotations and Vertico minibuffer with Marginalia documentation.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <span class="tag-pill">Corfu</span>
+            <span class="tag-pill">Vertico</span>
+            <span class="tag-pill">Marginalia</span>
+          </div>
+        </div>
+        <div class="image-container" onclick="openModal('screenshots/geist-completion-dark.png')">
+          <img src="screenshots/geist-completion-dark.png" alt="Geist Dark Completion preview">
+          <div class="zoom-hint">🔍 Click to zoom full-res</div>
+        </div>
+        <div class="card-footer">
+          <div class="swatches">
+            <span style="color:var(--fg-muted);">UI Tokens:</span>
+            <div class="swatch-item"><div class="swatch-color" style="background:#111111;"></div> Popup #111111</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#1c1c1c;"></div> Selected #1c1c1c</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#383838;"></div> Focus Border #383838</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#50e3c2;"></div> Type Mint #50e3c2</div>
+          </div>
+          <div class="mono" style="color:var(--fg-muted);">corfu-default / vertico-current</div>
+        </div>
+      </article>
+
+      <!-- 5. Corfu + Vertico Completion Light -->
+      <article class="card" data-category="completion light">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span style="color:var(--brand-yellow); font-weight:700;">▲</span>
+            <div>
+              <h2 class="card-title">Completion & Diagnostics — Light Mode</h2>
+              <p class="card-desc">Light mode popup elevation (#f5f5f5), active candidate selection (#eaeaea), and sharp keybinding annotations.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <span class="tag-pill">Corfu</span>
+            <span class="tag-pill">Vertico</span>
+            <span class="tag-pill">Marginalia</span>
+          </div>
+        </div>
+        <div class="image-container" onclick="openModal('screenshots/geist-completion-light.png')">
+          <img src="screenshots/geist-completion-light.png" alt="Geist Light Completion preview">
+          <div class="zoom-hint">🔍 Click to zoom full-res</div>
+        </div>
+        <div class="card-footer">
+          <div class="swatches">
+            <span style="color:var(--fg-muted);">UI Tokens:</span>
+            <div class="swatch-item"><div class="swatch-color" style="background:#f5f5f5;"></div> Popup #f5f5f5</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#eaeaea;"></div> Selected #eaeaea</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#d4d4d4;"></div> Focus Border #d4d4d4</div>
+            <div class="swatch-item"><div class="swatch-color" style="background:#0891b2;"></div> Type Teal #0891b2</div>
+          </div>
+          <div class="mono" style="color:var(--fg-muted);">corfu-default / vertico-current</div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- Modal Lightbox -->
+  <div class="modal" id="modal" onclick="closeModal()">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close modal">&times;</button>
+    <img id="modal-img" src="" alt="Full resolution preview">
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div style="margin-bottom:8px;">
+      <span style="color:var(--brand-blue); font-weight:700;">▲</span> Geistmacs © 2025 Eric Larson. MIT License.
+    </div>
+    <div>
+      Designed for <a href="https://vercel.com/font" target="_blank" rel="noopener">Geist Mono & Geist</a> typography.
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle Functionality
+    const htmlEl = document.documentElement;
+    const themeBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeText = document.getElementById('theme-text');
+
+    function setTheme(theme) {
+      htmlEl.setAttribute('data-theme', theme);
+      if (theme === 'light') {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Dark';
+      } else {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Light';
+      }
+    }
+
+    themeBtn.addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Category Filter Tabs
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+        cards.forEach(card => {
+          if (filter === 'all') {
+            card.style.display = 'block';
+          } else {
+            const categories = card.getAttribute('data-category').split(' ');
+            if (categories.includes(filter)) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          }
+        });
+      });
+    });
+
+    // Modal Lightbox
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-img');
+
+    function openModal(src) {
+      modalImg.src = src;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>
