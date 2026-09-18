@@ -207,12 +207,8 @@ Customize variables before or after loading the theme:
 # Run unit tests
 emacs -Q --batch -L . -L tests -l tests/geist-test.el -f ert-run-tests-batch-and-exit
 
-# Re-generate HTML and PNG previews
-emacs -Q --batch -L . -l preview/render-preview.el
-firefox --headless --window-size=1460,940 "--screenshot=$(pwd)/screenshots/geist-dark.png" "file://$(pwd)/preview/geist-dark-preview.html"
-firefox --headless --window-size=1460,940 "--screenshot=$(pwd)/screenshots/geist-light.png" "file://$(pwd)/preview/geist-light-preview.html"
-firefox --headless --window-size=1200,680 "--screenshot=$(pwd)/screenshots/geist-completion-dark.png" "file://$(pwd)/preview/geist-completion-preview.html"
-firefox --headless --window-size=1520,780 "--screenshot=$(pwd)/screenshots/geist-comparison.png" "file://$(pwd)/preview/geist-comparison-preview.html"
+# Re-generate all high-resolution PNG previews (fast & stall-free)
+./preview/capture.sh
 ```
 
 ---
