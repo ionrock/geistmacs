@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <!-- macOS System App Icon Drop Shadow -->
+    <filter id="app-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.6"/>
+      <feDropShadow dx="0" dy="36" stdDeviation="48" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+
+    <!-- Base Obsidian Background Gradient -->
+    <radialGradient id="base-bg-dark" cx="50%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#161619"/>
+      <stop offset="60%" stop-color="#08080a"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+
+    <!-- Signature Vercel Conic Ambient Glow -->
+    <radialGradient id="vercel-glow" cx="50%" cy="50%" r="56%">
+      <stop offset="0%" stop-color="#0070f3" stop-opacity="0.44"/>
+      <stop offset="35%" stop-color="#7928ca" stop-opacity="0.30"/>
+      <stop offset="70%" stop-color="#ff0080" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Spectral Vercel Prism: Cyan -> Blue -> Purple -> Pink -->
+    <linearGradient id="spectral-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#50e3c2"/>
+      <stop offset="28%" stop-color="#0070f3"/>
+      <stop offset="68%" stop-color="#7928ca"/>
+      <stop offset="100%" stop-color="#ff0080"/>
+    </linearGradient>
+
+    <!-- Titanium Metal Gradient for Foreground Glyph -->
+    <linearGradient id="titanium" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="65%" stop-color="#f5f5f7"/>
+      <stop offset="100%" stop-color="#d8d8de"/>
+    </linearGradient>
+
+    <!-- App Squircle Border Highlight -->
+    <linearGradient id="squircle-border-dark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="none"/>
+
+  <!-- macOS App Icon Base -->
+  <g filter="url(#app-shadow)">
+    <path d="M 285 100
+               L 739 100
+               C 862.3333333333334 100, 924 161.66666666666666, 924 285
+               L 924 739
+               C 924 862.3333333333334, 862.3333333333334 924, 739 924
+               L 285 924
+               C 161.66666666666666 924, 100 862.3333333333334, 100 739
+               L 100 285
+               C 100 161.66666666666666, 161.66666666666666 100, 285 100 Z" fill="url(#base-bg-dark)"/>
+    <path d="M 285 100
+               L 739 100
+               C 862.3333333333334 100, 924 161.66666666666666, 924 285
+               L 924 739
+               C 924 862.3333333333334, 862.3333333333334 924, 739 924
+               L 285 924
+               C 161.66666666666666 924, 100 862.3333333333334, 100 739
+               L 100 285
+               C 100 161.66666666666666, 161.66666666666666 100, 285 100 Z" fill="none" stroke="url(#squircle-border-dark)" stroke-width="2.5"/>
+  </g>
+
+  <!-- Ambient Electric Glow behind glyph -->
+  <circle cx="512" cy="512" r="320" fill="url(#vercel-glow)" style="mix-blend-mode: screen;"/>
+
+  <!-- Blueprint Engineering Guides (Vercel Precision Aesthetic) -->
+  <g opacity="0.05" stroke="#ffffff" stroke-width="1">
+    <circle cx="512" cy="512" r="280" fill="none"/>
+    <circle cx="512" cy="512" r="180" fill="none"/>
+    <line x1="512" y1="160" x2="512" y2="864"/>
+    <line x1="160" y1="512" x2="864" y2="512"/>
+  </g>
+
+  <!-- Master Geistmacs Delta-E Glyph -->
+  <g id="geistmacs-glyph" transform="translate(0, -6)" filter="drop-shadow(0 24px 44px rgba(0,0,0,0.9))">
+    <!-- Ambient aura outline -->
+    <polygon points="512,228 226,724 798,724" fill="none" stroke="url(#spectral-grad)" stroke-width="16" opacity="0.45" filter="blur(18px)"/>
+
+    <!-- Base titanium body -->
+    <path d="
+  M 512 238
+  L 604 398
+  L 508 398
+  L 468 466
+  L 600 466
+  L 640 504
+  L 600 542
+  L 424 542
+  L 384 612
+  L 728 612
+  L 788 716
+  L 236 716
+  Z
+"
+          fill="url(#titanium)"
+          stroke="rgba(255,255,255,0.4)"
+          stroke-width="1.5"/>
+
+    <!-- Subtle spectral iridescent prism overlay on lower facet -->
+    <g opacity="0.26" style="mix-blend-mode: overlay;">
+      <path d="
+  M 512 238
+  L 604 398
+  L 508 398
+  L 468 466
+  L 600 466
+  L 640 504
+  L 600 542
+  L 424 542
+  L 384 612
+  L 728 612
+  L 788 716
+  L 236 716
+  Z
+" fill="url(#spectral-grad)"/>
+    </g>
+
+    <!-- Razor sharp specular rim along 60° left spine -->
+    <line x1="512" y1="238" x2="236" y2="716" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    <!-- Specular rim along base -->
+    <line x1="236" y1="716" x2="788" y2="716" stroke="#ffffff" stroke-opacity="0.3" stroke-width="2"/>
+
+    <!-- Inner neon bevel highlights on horizontal bays -->
+    <line x1="504" y1="398" x2="604" y2="398" stroke="url(#spectral-grad)" stroke-width="3"/>
+    <line x1="380" y1="612" x2="728" y2="612" stroke="url(#spectral-grad)" stroke-width="3"/>
+
+    <!-- Middle arm chevron accent (prompt / forward arrow) -->
+    <polygon points="640,504 600,474 600,534" fill="url(#spectral-grad)" filter="drop-shadow(0 2px 8px rgba(0, 112, 243, 0.6))"/>
+
+    <!-- Apex laser pinpoint in Geist Mint/Cyan -->
+    <circle cx="512" cy="238" r="4.5" fill="#50e3c2" filter="drop-shadow(0 0 8px #50e3c2)"/>
+  </g>
+</svg>

@@ -1,5 +1,9 @@
 # ▲ Geistmacs — Vercel Geist Theme for GNU Emacs
 
+<p align="center">
+  <img src="icons/icon-showcase.png" alt="Geistmacs Icon Family" width="100%">
+</p>
+
 A minimalist, high-contrast GNU Emacs theme family inspired by Vercel's iconic **Geist design system** and typography. Engineered for **Geist Mono** and **Geist** with pixel-precise contrast, obsidian OLED blacks, paper whites, and signature electric accents.
 
 ![Geist Theme Comparison](screenshots/geist-comparison.png)
@@ -98,6 +102,46 @@ Clone the repository into your Emacs configuration:
 ```bash
 git clone https://github.com/elarson/geistmacs.git ~/.emacs.d/themes/geistmacs
 ```
+
+---
+
+## Application Icon (`geistmacs.icns`)
+
+Geistmacs includes a custom-crafted application icon and vector mark suite inspired by Vercel's iconic equilateral triangle (`▲`) and the GNU Emacs "E" monogram.
+
+<p align="center">
+  <img src="icons/png/geistmacs-512x512.png" alt="Geistmacs Dark Icon" width="160">&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="icons/png/geistmacs-light-512x512.png" alt="Geistmacs Light Icon" width="160">&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="icons/png/geistmacs-mark-512x512.png" alt="Geistmacs Standalone Mark" width="160">
+</p>
+
+- **True Euclidean Geometry**: An equilateral 60° triangle container with precision negative-space cutouts forming the uppercase "E" and forward prompt chevron.
+- **Titanium Specular Sheen**: Chiseled specular rim lighting along the left 60° spine, with an iridescent spectral prism sheen across the lower facet.
+- **Signature Electric Aura**: Luminous radiant glow (`#0070f3` electric blue → `#7928ca` purple → `#ff0080` hot pink) blooming into OLED obsidian black (`#000000`).
+- **Apple Standard Squircle**: Built to Apple Human Interface Guidelines continuous curvature with multi-layer ambient drop shadows.
+
+### Applying to `Emacs.app` on macOS
+
+```bash
+# Option 1: Terminal command
+cp icons/geistmacs.icns /Applications/Emacs.app/Contents/Resources/Emacs.icns
+touch /Applications/Emacs.app && killall Finder Dock
+```
+
+Or via Finder GUI:
+1. Open **Finder** and navigate to `/Applications`.
+2. Select `Emacs.app` and press **⌘ + I** (Get Info).
+3. Drag `icons/geistmacs.icns` directly onto the small icon in the top-left corner of the Get Info window.
+
+### Available Formats in `icons/`
+
+- `icons/geistmacs.icns`: Native macOS multi-resolution icon bundle (16px to 1024px @2x Retina).
+- `icons/svg/geistmacs-icon-dark.svg`: Dark mode macOS squircle app icon.
+- `icons/svg/geistmacs-icon-light.svg`: Light mode macOS squircle app icon.
+- `icons/svg/geistmacs-mark-dark.svg`: Standalone vector glyph (transparent background).
+- `icons/svg/geistmacs-mark-monochrome.svg`: Single-color vector glyph for masks or print.
+- `icons/svg/favicon.svg`: Web favicon (32×32).
+- `icons/png/`: Pre-rendered PNG exports from 16×16 to 1024×1024.
 
 Then add it to your `init.el`:
 

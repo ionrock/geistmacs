@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <g transform="translate(-212, -163)">
+    <path d="
+  M 512 238
+  L 604 398
+  L 508 398
+  L 468 466
+  L 600 466
+  L 640 504
+  L 600 542
+  L 424 542
+  L 384 612
+  L 728 612
+  L 788 716
+  L 236 716
+  Z
+" fill="currentColor"/>
+    <polygon points="640,504 600,474 600,534" fill="currentColor"/>
+  </g>
+</svg>

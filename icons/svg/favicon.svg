@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="7" fill="#000000"/>
+  <rect width="32" height="32" rx="7" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+  <!-- Scaled Delta-E mark -->
+  <!-- Triangle from (16, 5) to (6, 26) to (26, 26) -->
+  <path d="M 16 5
+           L 20 12
+           L 16 12
+           L 14 15
+           L 19.5 15
+           L 21 17
+           L 19.5 19
+           L 13 19
+           L 11 22
+           L 24 22
+           L 26 26
+           L 6 26
+           Z"
+        fill="#ffffff"/>
+  <polygon points="21,17 19.5,15.2 19.5,18.8" fill="#0070f3"/>
+</svg>
